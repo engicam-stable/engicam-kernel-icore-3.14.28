@@ -8,12 +8,12 @@
 
 /dts-v1/;
 
-#include "imx6q.dtsi"
-#include "imx6qdl-icore.dtsi"
+#include "imx6dl.dtsi"
+#include "icorem6qdl.dtsi"
 
 / {
-	model = "Engicam i.CoreM6 Quad/Dual starterkit";
-	compatible = "fsl,imx6-icore", "fsl,imx6q";
+	model = "Engicam i.CoreM6 DuaLlite/Solo starterkit";
+	compatible = "fsl,imx6-icore", "fsl,imx6dl";
 
 	sound {
 		compatible = "fsl,imx6-icore-sgtl5000",
@@ -43,7 +43,24 @@
 	status = "okay";
 };
 
-&sata {
+&uart2 {
+	status = "okay";
+};
+
+&uart3 {
+	fsl,uart-has-rtscts;
+	status = "okay";
+};
+
+&flexcan1 {
+	status = "okay";
+};
+
+&flexcan2 {
+	status = "okay";
+};
+
+&usbotg {
 	status = "okay";
 };
 
@@ -78,16 +95,6 @@
 		VDDD-supply = <&reg_1p8v>;
 	};
 
-	polytouch: edt-ft5x06@38 {
-		compatible = "edt,edt-ft5406";
-		reg = <0x38>;
-		pinctrl-names = "default";		
-		pinctrl-0 = <&pinctrl_edt_ft5x06>;
-		interrupt-parent = <&gpio5>;
-		interrupts = <30 0>;	
-		reset-gpios = <&gpio6 0 1>;
-	};
-
 	adv7180: adv7180@21 {
 		compatible = "adv,adv7180";
 		reg = <0x21>;
@@ -116,17 +123,6 @@
 			fsl,pins = <
 				MX6QDL_PAD_GPIO_2__GPIO1_IO02 0x1f059
 				MX6QDL_PAD_EIM_D19__GPIO3_IO19 0x1f059 /* not used pin for ADV7180 driver compatibility */
-			>;
-		};
-	};
-};
-
-&iomuxc {
-	touchpanel{
-		pinctrl_edt_ft5x06:  edt-ft5x06grp  {
-			fsl,pins = <
-				MX6QDL_PAD_CSI0_DAT12__GPIO5_IO30 0x1b0b0 /*interrupt*/ 
-				MX6QDL_PAD_CSI0_DAT14__GPIO6_IO00 0x1b0b0 /*reset edt*/
 			>;
 		};
 	};

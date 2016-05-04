@@ -9,10 +9,10 @@
 /dts-v1/;
 
 #include "imx6q.dtsi"
-#include "imx6qdl-icore-rqs.dtsi"
+#include "icorem6qdl-rqs.dtsi"
 
 / {
-	model = "Engicam i.CoreM6 Quad/Dual qseven SOM";
+	model = "Engicam i.CoreM6 Quad/Dual RQS";
 	compatible = "fsl,imx6-icore-rqs", "fsl,imx6q";
 	
 	aliases {

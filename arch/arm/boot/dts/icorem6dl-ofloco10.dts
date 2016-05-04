@@ -9,24 +9,40 @@
 /dts-v1/;
 
 #include "imx6dl.dtsi"
-#include "imx6qdl-icore.dtsi"
+#include "icorem6qdl.dtsi"
 
 / {
-	model = "Engicam i.CoreM6 DualLite/Solo Openframe LOCO";
+	model = "Engicam i.CoreM6 DualLite/Solo OpenFrame Loco 10.1";
 	compatible = "fsl,imx6-icore", "fsl,imx6dl";
-	
-	backlight {
-		compatible = "pwm-backlight";
-		pwms = <&pwm3 0 3000000>;
-		brightness-levels = <0 4 8 16 32 64 128 255>;
-		default-brightness-level = <7>;
-	};
 };
 
 &ldb {
-	ipu_id = <0>;
-	sec_ipu_id = <0>;
+	status = "okay";
+
+	lvds-channel@0 {
+		fsl,data-mapping = "spwg";
+		fsl,data-width = <18>;
+		status = "okay";
+		crtc = "ipu1-di0";
+		primary;
+
+		display-timings {
+                        native-mode = <&timing1>;
+                        timing1: hsd100pxn1 {
+                                clock-frequency = <60000000>;
+                                hactive = <1024>;
+                                vactive = <600>;
+                                hback-porch = <353>;
+                                hfront-porch = <47>;
+                                vback-porch = <39>;
+                                vfront-porch = <4>;
+                                hsync-len = <8>;
+                                vsync-len = <2>;
+                        };
+                };
+	};
 };
+
 
 &mxcfb1 {
 	status = "okay";
@@ -36,27 +52,18 @@
 	status = "okay";
 };
 
-/* To be enabled for PCI peripheral.
-   Please enable also the PCI support kernel options:
-   CONFIG_PCI and PCI_IMX6
-&pcie {
+&uart2 {
 	status = "okay";
 };
-*/
 
-&i2c1 {
-
+&uart3 {
+	fsl,uart-has-rtscts;
+	status = "okay";
 };
 
-&i2c2 {
-
-	hdmi: edid@50 {
-		compatible = "fsl,imx6-hdmi-i2c";
-		reg = <0x50>;
-	};
-
+&flexcan2 {
+	status = "okay";
 };
-
 
 &i2c3 {
 
@@ -85,16 +92,6 @@
 		};
 	};
 
-	codec: sgtl5000@0a {
-		compatible = "fsl,sgtl5000";
-		reg = <0x0a>;
-		clocks = <&clks 201>;
-		VDDA-supply = <&reg_2p5v>;
-		VDDIO-supply = <&reg_3p3v>;
-		VDDD-supply = <&reg_1p8v>;
-		status = "disabled";
-	};
-
 	pcf8563: rtc@51 {
 		compatible = "pcf8563";
 		reg = <0x51>;
@@ -110,18 +107,3 @@
 		};
 	};
 };
-&iomuxc {
-
-	pinctrl-assert-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
-	
-	hog {
-		pinctrl_hog: hoggrp {
-			fsl,pins = <
-				MX6QDL_PAD_GPIO_2__GPIO1_IO02 0x1f059
-				MX6QDL_PAD_EIM_D19__GPIO3_IO19 0x1f059 /* not used pin for ADV7180 driver compatibility */
-			>;
-		};
-	};
-};
-
-

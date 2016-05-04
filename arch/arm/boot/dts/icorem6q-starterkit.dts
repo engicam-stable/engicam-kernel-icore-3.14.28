@@ -8,12 +8,12 @@
 
 /dts-v1/;
 
-#include "imx6dl.dtsi"
-#include "imx6qdl-icore.dtsi"
+#include "imx6q.dtsi"
+#include "icorem6qdl.dtsi"
 
 / {
-	model = "Engicam i.CoreM6 DualLite/Solo starterkit";
-	compatible = "fsl,imx6-icore", "fsl,imx6dl";
+	model = "Engicam i.CoreM6 Quad/Dual starterkit";
+	compatible = "fsl,imx6-icore", "fsl,imx6q";
 
 	sound {
 		compatible = "fsl,imx6-icore-sgtl5000",
@@ -43,13 +43,30 @@
 	status = "okay";
 };
 
-/* To be enabled for PCI peripheral.
-   Please enable also the PCI support kernel options:
-   CONFIG_PCI and PCI_IMX6
-&pcie {
+&sata {
 	status = "okay";
 };
-*/
+
+&uart2 {
+	status = "okay";
+};
+
+&uart3 {
+	fsl,uart-has-rtscts;
+	status = "okay";
+};
+
+&flexcan1 {
+	status = "okay";
+};
+
+&flexcan2 {
+	status = "okay";
+};
+
+&usbotg {
+	status = "okay";
+};
 
 &i2c1 {
 
@@ -69,11 +86,9 @@
 		compatible = "fsl,imx6-hdmi-i2c";
 		reg = <0x50>;
 	};
-
 };
 
-
-&i2c3 {
+ &i2c3 {
 
 	codec: sgtl5000@0a {
 		compatible = "fsl,sgtl5000";
@@ -82,16 +97,6 @@
 		VDDA-supply = <&reg_2p5v>;
 		VDDIO-supply = <&reg_3p3v>;
 		VDDD-supply = <&reg_1p8v>;
-	};
-
-	polytouch: edt-ft5x06@38 {
-		compatible = "edt,edt-ft5406";
-		reg = <0x38>;
-		pinctrl-names = "default";		
-		pinctrl-0 = <&pinctrl_edt_ft5x06>;
-		interrupt-parent = <&gpio5>;
-		interrupts = <30 0>;	
-		reset-gpios = <&gpio6 0 1>;
 	};
 
 	adv7180: adv7180@21 {
@@ -114,18 +119,9 @@
 };
 
 &iomuxc {
-	touchpanel{
-		pinctrl_edt_ft5x06:  edt-ft5x06grp  {
-			fsl,pins = <
-				MX6QDL_PAD_CSI0_DAT12__GPIO5_IO30 0x1b0b0 /*interrupt*/ 
-				MX6QDL_PAD_CSI0_DAT14__GPIO6_IO00 0x1b0b0 /*reset edt*/
-			>;
-		};
-	};
-};
 
-&iomuxc {
-
+	pinctrl-assert-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+	
 	hog {
 		pinctrl_hog: hoggrp {
 			fsl,pins = <
@@ -135,4 +131,3 @@
 		};
 	};
 };
-

@@ -155,19 +155,18 @@ dtb-$(CONFIG_ARCH_MXC) += \
 	imx53-smd.dtb \
 	imx6dl-cubox-i.dtb \
 	imx6dl-hummingboard.dtb \
-	imx6dl-icore.dtb \
-	icorem6dl-ofres.dtb \
-	icorem6q.dtb \
+	icorem6q-starterkit.dtb \
  	icorem6q-ofres.dtb \
 	icorem6q-ofcap7.dtb \
 	icorem6q-ofcap10.dtb \
+	icorem6dl-starterkit.dtb \
 	icorem6dl-ofcap7.dtb \
 	icorem6dl-ofcap10.dtb \
 	icorem6dl-ofwi.dtb \
+	icorem6dl-ofloco10.dtb \
 	icorem6q-ofwi.dtb \
-	imx6dl-ofloco.dtb \
-	imx6dl-icore-rqs.dtb \
-	imx6q-icore-rqs.dtb \
+	icorem6dl-starterkit-rqs.dtb \
+	icorem6q-starterkit-rqs.dtb \
 	imx6dl-sabreauto.dtb \
 	imx6dl-sabreauto-flexcan1.dtb \
 	imx6dl-sabreauto-ecspi.dtb \
