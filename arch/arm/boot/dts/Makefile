@@ -165,6 +165,7 @@ dtb-$(CONFIG_ARCH_MXC) += \
 	icorem6dl-ofcap10.dtb \
 	icorem6dl-ofwi.dtb \
 	icorem6dl-ofloco10.dtb \
+	icorem6dl-oflococap.dtb \
 	icorem6q-ofwi.dtb \
 	icorem6dl-starterkit-rqs.dtb \
 	icorem6q-starterkit-rqs.dtb \

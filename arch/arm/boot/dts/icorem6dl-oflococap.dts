@@ -1,0 +1,74 @@
+/*
+ * Copyright (C) 2013 Freescale Semiconductor, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+/dts-v1/;
+
+#include "imx6dl.dtsi"
+#include "icorem6qdl.dtsi"
+
+/ {
+	model = "Engicam i.CoreM6 solo/duallite loco openframe";
+	compatible = "fsl,imx6-icore", "fsl,imx6dl";
+};
+
+&ldb {
+	ipu_id = <0>;
+	sec_ipu_id = <0>;
+};
+
+&mxcfb1 {
+	status = "okay";
+};
+
+&mxcfb2 {
+	status = "okay";
+};
+
+&uart2 {
+	status = "okay";
+};
+
+&uart3 {
+	fsl,uart-has-rtscts;
+	status = "okay";
+};
+
+
+&i2c3 {
+	
+	polytouch: edt-ft5x06@38 {
+		compatible = "edt,edt-eng-ft5336";
+		reg = <0x38>;
+		pinctrl-names = "default";		
+		pinctrl-0 = <&pinctrl_edt_ft5x06>;
+		interrupt-parent = <&gpio5>;
+		interrupts = <30 0>;	
+		reset-gpios = <&gpio1 7 1>;
+	};
+
+	
+	// Optional RTC
+	pcf8563: rtc@51 {
+		compatible = "pcf8563";
+		reg = <0x51>;
+	};
+
+};
+
+
+&iomuxc {
+	touchpanel{
+		pinctrl_edt_ft5x06:  edt_ft5x06-tsgrp  {
+			fsl,pins = <
+				MX6QDL_PAD_CSI0_DAT12__GPIO5_IO30 	0x1b0b0 /*interrupt*/ 
+				MX6QDL_PAD_GPIO_7__GPIO1_IO07		0x1b0b0 /*reset edt*/
+			>;
+		};
+	};
+};
+
