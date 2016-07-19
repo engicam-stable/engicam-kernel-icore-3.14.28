@@ -27,7 +27,18 @@
 			"Headphone Jack", "HP_OUT";
 		mux-int-port = <1>;
 		mux-ext-port = <4>;
-	};	
+	};
+
+	gpio_export {
+		compatible = "gpio-export";
+		#size-cells = <0>;
+		GPIO_DL2 {
+		        gpio-export,name = "GPIO_DL2";
+			gpio-export,output = <1>;
+                        gpio-export,direction_may_change;
+		        gpios = <&gpio1 3 0>;
+		};
+	};
 };
 
 &ldb {
@@ -115,14 +126,13 @@
 };
 
 &iomuxc {
-
-	pinctrl-assert-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
-	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_hog>;
 	hog {
 		pinctrl_hog: hoggrp {
 			fsl,pins = <
-				MX6QDL_PAD_GPIO_2__GPIO1_IO02 0x1f059
 				MX6QDL_PAD_EIM_D19__GPIO3_IO19 0x1f059 /* not used pin for ADV7180 driver compatibility */
+				MX6QDL_PAD_GPIO_3__GPIO1_IO03 0x1f059 /* LED DL2*/
 			>;
 		};
 	};

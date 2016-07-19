@@ -14,6 +14,17 @@
 / {
 	model = "Engicam i.CoreM6 Quad/Dual resistive openframe";
 	compatible = "fsl,imx6-icore", "fsl,imx6q";
+
+	gpio_export {
+		compatible = "gpio-export";
+		#size-cells = <0>;
+		GPIO_DL2 {
+		        gpio-export,name = "GPIO_DL2";
+			gpio-export,output = <1>;
+                        gpio-export,direction_may_change;
+		        gpios = <&gpio1 3 0>;
+		};
+	};
 };
 
 &ldb {
@@ -58,5 +69,17 @@
 	pcf8563: rtc@51 {
 		compatible = "pcf8563";
 		reg = <0x51>;
+	};
+};
+
+&iomuxc {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_hog>;
+	hog {
+		pinctrl_hog: hoggrp {
+			fsl,pins = <
+				MX6QDL_PAD_GPIO_3__GPIO1_IO03 0x1f059 /* LED DL2*/
+			>;
+		};
 	};
 };
