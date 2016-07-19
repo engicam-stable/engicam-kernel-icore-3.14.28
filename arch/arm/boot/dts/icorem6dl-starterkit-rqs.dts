@@ -20,6 +20,17 @@
 		mmc0 = &usdhc3;
 		mmc2 = &usdhc1;
 	};
+
+	gpio_export {
+		compatible = "gpio-export";
+		#size-cells = <0>;
+		GPIO_DL4 {
+		        gpio-export,name = "GPIO_DL4";
+			gpio-export,output = <1>;
+                        gpio-export,direction_may_change;
+		        gpios = <&gpio2 25 0>;
+		};
+	};
 };
 
 &ldb {
@@ -68,17 +79,14 @@
 };
 
 &iomuxc {
-
-	pinctrl-assert-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
-	
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_hog>;	
 	hog {
 		pinctrl_hog: hoggrp {
 			fsl,pins = <
-				MX6QDL_PAD_GPIO_2__GPIO1_IO02 0x1f059
 				MX6QDL_PAD_EIM_D19__GPIO3_IO19 0x1f059 /* not used pin for ADV7180 driver compatibility */
+				MX6QDL_PAD_EIM_OE__GPIO2_IO25 0x1f059 /* LED DL4*/
 			>;
 		};
 	};
 };
-
-
