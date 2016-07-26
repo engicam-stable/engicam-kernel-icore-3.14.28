@@ -169,6 +169,7 @@ dtb-$(CONFIG_ARCH_MXC) += \
 	icorem6q-ofwi.dtb \
 	icorem6dl-starterkit-rqs.dtb \
 	icorem6q-starterkit-rqs.dtb \
+	imx6sx-icore-m4.dtb \
 	imx6dl-sabreauto.dtb \
 	imx6dl-sabreauto-flexcan1.dtb \
 	imx6dl-sabreauto-ecspi.dtb \
