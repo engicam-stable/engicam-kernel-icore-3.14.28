@@ -965,7 +965,7 @@ static irqreturn_t ad714x_interrupt_thread(int irq, void *data)
 
 
 #ifdef CONFIG_OF
-
+struct ad714x_platform_data ad714x_plat_data;
 struct ad714x_button_plat button_plat[4];
 #define CDC_OFST_HI     0x400
 #define CDC_OFST_LO     0x400
@@ -1113,11 +1113,17 @@ struct ad714x_chip *ad714x_probe(struct device *dev, u16 bus_type, int irq,
 		goto err_out;
 	}
 
+#ifdef CONFIG_OF
+	plat_data = &ad714x_plat_data;
+	ad714x_i2c_probe_dt(dev, plat_data);
+
+#else
 	if (dev_get_platdata(dev) == NULL) {
 		dev_err(dev, "platform data for ad714x doesn't exist\n");
 		error = -EINVAL;
 		goto err_out;
 	}
+#endif
 
 	ad714x = kzalloc(sizeof(*ad714x) + sizeof(*ad714x->sw) +
 			 sizeof(*sd_drv) * plat_data->slider_num +
