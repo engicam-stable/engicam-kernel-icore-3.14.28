@@ -126,6 +126,12 @@ static unsigned int share_count_ssi2;
 static unsigned int share_count_ssi3;
 static unsigned int share_count_spdif;
 
+void init_rqs_hub_usb(void)
+{
+	imx_clk_set_parent(clk[IMX6QDL_CLK_LVDS2_SEL], clk[IMX6QDL_CLK_OSC]);
+	imx_clk_prepare_enable(clk[IMX6QDL_CLK_LVDS2_GATE]);
+}
+
 static void __init imx6q_clocks_init(struct device_node *ccm_node)
 {
 	struct device_node *np;

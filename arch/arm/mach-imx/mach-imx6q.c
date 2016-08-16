@@ -586,6 +586,8 @@ static struct platform_device imx6q_cpufreq_pdev = {
 	.name = "imx6q-cpufreq",
 };
 
+void init_rqs_hub_usb(void);
+
 static void __init icore_late_init(void)
 {
 	struct device_node *np;
@@ -629,23 +631,11 @@ static void __init icore_rqs_late_init(void)
 {
 	struct device_node *np;
 	struct platform_device *pdev;
-	struct clk *lvds2_sel, *osc, *lvds2_out;
 
 	printk("uQseven iCoreRQS module\n");
 
 	printk("Init clock for USB HUB on RQS....");
-	lvds2_sel = clk_get_sys(NULL, "lvds2_sel");
-	osc = clk_get_sys(NULL, "osc");
-	lvds2_out = clk_get_sys(NULL, "lvds2_out");
-	if (IS_ERR(osc) || IS_ERR(lvds2_sel) ||
-	    IS_ERR(lvds2_out))
-	{
-		printk("*** Error getting clock\n");
-		return;
-	}
-	clk_set_parent(lvds2_sel, osc);
-	clk_set_rate(lvds2_out, 24000000);
-	clk_prepare_enable(lvds2_out);
+	init_rqs_hub_usb();
 	printk("Done\n");
 
 	np = of_find_node_by_path("/soc/aips-bus@02100000/usb@02184000");
