@@ -43,7 +43,7 @@
 		display-timings {
                         native-mode = <&timing1>;
                         timing1: hsd100pxn1 {
-                                clock-frequency = <50000000>;
+                                clock-frequency = <33000000>;
                                 hactive = <800>;
                                 vactive = <480>;
                                 hback-porch = <30>;
@@ -94,9 +94,30 @@
 		VDDIO-supply = <&reg_3p3v>;
 		VDDD-supply = <&reg_1p8v>;
 	};
+
+	polytouch: edt-ft5x06@38 {
+		compatible = "edt,edt-ft5406";
+		reg = <0x38>;
+		pinctrl-names = "default";		
+		pinctrl-0 = <&pinctrl_edt_ft5x06>;
+		interrupt-parent = <&gpio5>;
+		interrupts = <30 0>;	
+		reset-gpios = <&gpio6 0 1>;
+	};
 	
 	pcf8563: rtc@51 {
 		compatible = "pcf8563";
 		reg = <0x51>;
+	};
+};
+
+&iomuxc {
+	touchpanel{
+		pinctrl_edt_ft5x06:  edt-ft5x06grp  {
+			fsl,pins = <
+				MX6QDL_PAD_CSI0_DAT12__GPIO5_IO30 0x1b0b0 /*interrupt*/ 
+				MX6QDL_PAD_CSI0_DAT14__GPIO6_IO00 0x1b0b0 /*reset edt*/
+			>;
+		};
 	};
 };
