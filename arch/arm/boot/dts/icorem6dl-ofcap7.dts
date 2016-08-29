@@ -43,7 +43,7 @@
 		display-timings {
                         native-mode = <&timing1>;
                         timing1: hsd100pxn1 {
-                                clock-frequency = <40000000>;
+                                clock-frequency = <33000000>;
                                 hactive = <800>;
                                 vactive = <480>;
                                 hback-porch = <30>;
