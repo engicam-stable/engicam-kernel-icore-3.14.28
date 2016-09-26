@@ -28,6 +28,16 @@
 		mux-int-port = <1>;
 		mux-ext-port = <4>;
 	};
+	
+	gpio_export {
+		compatible = "gpio-export";
+		GPIO_EIM_DA7 {
+			gpio-export,name = "GPIO_EIM_DA7";
+			gpio-export,input = <1>;
+			gpios = <&gpio3 7 0>;
+		};		
+	};
+	
 };
 
 
@@ -99,5 +109,17 @@
 	pcf8563: rtc@51 {
 		compatible = "pcf8563";
 		reg = <0x51>;
+	};
+};
+
+&iomuxc {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_hog>;	
+	hog {
+		pinctrl_hog: hoggrp {
+			fsl,pins = <
+				MX6QDL_PAD_EIM_DA7__GPIO3_IO07 0x1f059 /* EIM_DA07 forced to GPIO in */
+			>;
+		};
 	};
 };

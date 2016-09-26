@@ -41,6 +41,16 @@
                         };
                 };
 	};
+	
+	gpio_export {
+		compatible = "gpio-export";
+		GPIO_EIM_DA7 {
+			gpio-export,name = "GPIO_EIM_DA7";
+			gpio-export,input = <1>;
+			gpios = <&gpio3 7 0>;
+		};		
+	};
+	
 };
 
 
@@ -103,6 +113,18 @@
 		pinctrl_stmpe_ts:  stmpe-tsgrp  {
 			fsl,pins = <
 				MX6QDL_PAD_CSI0_DAT12__GPIO5_IO30 0x1b0b0 /*interrupt*/ 
+			>;
+		};
+	};
+};
+
+&iomuxc {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_hog>;	
+	hog {
+		pinctrl_hog: hoggrp {
+			fsl,pins = <
+				MX6QDL_PAD_EIM_DA7__GPIO3_IO07 0x1f059 /* EIM_DA07 forced to GPIO in */
 			>;
 		};
 	};

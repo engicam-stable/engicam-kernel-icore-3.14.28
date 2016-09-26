@@ -38,6 +38,11 @@
                         gpio-export,direction_may_change;
 		        gpios = <&gpio1 3 0>;
 		};
+	GPIO_EIM_DA7 {
+			gpio-export,name = "GPIO_EIM_DA7";
+			gpio-export,input = <1>;
+			gpios = <&gpio3 7 0>;
+		};		
 	};
 };
 
@@ -137,6 +142,7 @@
 			fsl,pins = <
 				MX6QDL_PAD_EIM_D19__GPIO3_IO19 0x1f059 /* not used pin for ADV7180 driver compatibility */
 				MX6QDL_PAD_GPIO_3__GPIO1_IO03 0x1f059 /* LED DL2*/
+				MX6QDL_PAD_EIM_DA7__GPIO3_IO07 0x1f059 /* EIM_DA07 forced to GPIO in */
 			>;
 		};
 	};
