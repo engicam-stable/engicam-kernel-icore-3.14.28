@@ -14,6 +14,15 @@
 / {
 	model = "Engicam i.CoreM6 DualLite/Solo OpenFrame Loco 10.1";
 	compatible = "fsl,imx6-icore", "fsl,imx6dl";
+
+	gpio_export {
+		compatible = "gpio-export";
+		GPIO_EIM_DA7 {
+			gpio-export,name = "GPIO_EIM_DA7";
+			gpio-export,input = <1>;
+			gpios = <&gpio3 7 0>;
+		};		
+	};
 };
 
 &ldb {
@@ -41,16 +50,6 @@
                         };
                 };
 	};
-	
-	gpio_export {
-		compatible = "gpio-export";
-		GPIO_EIM_DA7 {
-			gpio-export,name = "GPIO_EIM_DA7";
-			gpio-export,input = <1>;
-			gpios = <&gpio3 7 0>;
-		};		
-	};
-	
 };
 
 
