@@ -125,7 +125,7 @@
 		};
 	};
 
-#define ENET_PAD_CTRL 0x50
+#define ENET_PAD_CTRL 0xa091//0xa0b1(OK) //50
 #define ENET_RX_PAD_CTRL 0x30C1
 
 	enet1 {
