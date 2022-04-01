@@ -162,6 +162,7 @@ dtb-$(CONFIG_ARCH_MXC) += \
 	icorem6q-oflococap.dtb \
 	icorem6dl-starterkit.dtb \
 	icorem6dl-ofcap7.dtb \
+	icorem6dl-ofcap7-amp.dtb \
 	icorem6dl-ofcap10.dtb \
 	icorem6dl-ofwi.dtb \
 	icorem6dl-ofloco10.dtb \

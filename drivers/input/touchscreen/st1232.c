@@ -117,7 +117,7 @@ static int st1232_ts_read_data(struct st1232_ts_data *ts)
 
 	/* get "valid" bits */
 	finger[0].is_valid = buf[2] >> 7;
-	finger[1].is_valid = buf[5] >> 7;
+	finger[1].is_valid = buf[6] >> 7;
 
 	/* get xy coordinate */
 	if (finger[0].is_valid) {
@@ -125,12 +125,12 @@ static int st1232_ts_read_data(struct st1232_ts_data *ts)
 		finger[0].y = ((buf[2] & 0x0007) << 8) | buf[4];
 		if(ts->invert_y)
 			finger[0].y = ts->max_y - finger[0].y;
-		finger[0].t = buf[8];
+		finger[0].t = buf[5];
 	}
 
 	if (finger[1].is_valid) {
-		finger[1].x = ((buf[5] & 0x0070) << 4) | buf[6];
-		finger[1].y = ((buf[5] & 0x0007) << 8) | buf[7];
+		finger[1].x = ((buf[6] & 0x0070) << 4) | buf[7];
+		finger[1].y = ((buf[6] & 0x0007) << 8) | buf[8];
 		if(ts->invert_y)
 			finger[1].y = ts->max_y - finger[1].y;
 		finger[1].t = buf[9];
