@@ -60,6 +60,7 @@
 #include <linux/pm_runtime.h>
 #include <linux/busfreq-imx6.h>
 #include <linux/prefetch.h>
+#include <linux/gpio.h>
 
 #include <asm/cacheflush.h>
 
@@ -2300,6 +2301,20 @@ static int fec_enet_nway_reset(struct net_device *dev)
 {
 	struct fec_enet_private *fep = netdev_priv(dev);
 	struct phy_device *phydev = fep->phy_dev;
+
+	if (!strcmp(dev_name(&fep->phy_dev->dev),"2188000.ethernet:00")) {
+		gpio_request(179, "ETH_PHY1_RST");
+		gpio_direction_output(179,0);
+		udelay(500);
+		gpio_set_value(179,1);
+		gpio_free(179);
+	} else {
+		gpio_request(180, "ETH_PHY2_RST");
+		gpio_direction_output(180,0);
+		udelay(500);
+		gpio_set_value(180,1);
+		gpio_free(180);
+	}
 
 	if (!phydev)
 		return -ENODEV;
